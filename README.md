@@ -6,16 +6,16 @@ O AES opera no modo de criptografia de bloco, o que significa que ele criptograf
 
 PASSO A PASSO
 #### CHAVE 
-  É necessário um chave secreta compartilhada entre o remetente e o destinatário para criptografar e descriptografar os dados.
+     É necessário um chave secreta compartilhada entre o remetente e o destinatário para criptografar e descriptografar os dados.
 
 #### EXPANSÃO DE CHAVE
-  A chave original passa por uma etapa de expansão de chave para gerar uma série de chaves de rodada que serão usadas nas iterações do algoritmo.
+     A chave original passa por uma etapa de expansão de chave para gerar uma série de chaves de rodada que serão usadas nas iterações do algoritmo.
 
 #### CRIPTOGRAFIA 
-  O algoritmo AES executa várias rodadas (10, 12 ou 14, dependendo do tamanho da chave) de substituição de bytes, permutação de linhas, permutação de colunas e adição de chave para embaralhar e transformar os dados. Cada rodada usa uma chave de rodada diferente.
+    O algoritmo AES executa várias rodadas (10, 12 ou 14, dependendo do tamanho da chave) de substituição de bytes, permutação de linhas, permutação de colunas e adição de chave para embaralhar e transformar os dados. Cada rodada usa uma chave de rodada diferente.
 
 #### DESCRIPTOGRAFIA
-  O processo de descriptografia do AES é semelhante à criptografia, mas envolve a aplicação das operações inversas nas etapas de criptografia. As chaves de rodada são usadas na ordem inversa.
+    O processo de descriptografia do AES é semelhante à criptografia, mas envolve a aplicação das operações inversas nas etapas de criptografia. As chaves de rodada são usadas na ordem inversa.
 
 # IMPLEMENTAÇÃO
-A main do projeto fica no App.java, sendo assim para rodar basta digitar no terminal: `java App.java>`
+A main do projeto fica no App.java, sendo assim para rodar basta digitar no terminal: `java App.java`
