@@ -2,7 +2,7 @@ package aes.util;
 
 public interface ShiftRow {
 
-    static byte[][] rowShift(byte[][] rows) {
+    static byte[][] encryptRowShift(byte[][] rows) {
         byte[][] newRows = new byte[4][4];
         for (int i = 0; i < rows.length; i++) {
             newRows[i] = rows[i].clone();

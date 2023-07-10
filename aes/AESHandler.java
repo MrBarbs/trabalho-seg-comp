@@ -41,18 +41,18 @@ public interface AESHandler {
         public static byte[] shiftRows(byte[] key) {
             byte[][] rows = ShiftRow.convertKeyToRows(key);
 
-            rows = ShiftRow.rowShift(rows);
+            rows = ShiftRow.encryptRowShift(rows);
 
             return ShiftRow.convertRowsToKey(rows);
         } // ok
 
         public static byte[] mixColumns(byte[] key) {
-            byte[][] columns = MixColumns.convertKeyToColumns(key);
+            byte[][] rows = ShiftRow.convertKeyToRows(key);
 
-            columns = columnMixer(columns);
+            rows = columnMixer(rows);
 
-            return MixColumns.convertColumnsToKey(columns);
-        }
+            return ShiftRow.convertRowsToKey(rows);
+        } // ok
 
         public static byte[][] columnMixer(byte[][] columns) {
             byte[][] newColumns = new byte[4][4];

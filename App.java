@@ -1,8 +1,4 @@
-import java.util.Arrays;
-
 import aes.AES;
-import aes.AESHandler;
-import aes.util.ShiftRow;
 
 public class App {
     public static void main(String[] args) {
