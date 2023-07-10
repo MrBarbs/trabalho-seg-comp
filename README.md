@@ -1,7 +1,26 @@
-# trabalho-seg-comp
-Trabalho de segurança computacional - 2023-1
+# Trabalho de segurança computacional - 2023-1
 
-# RSA PASSO A PASSO
+# Miller-Rabin
+O algoritmo de Miller-Rabin é um teste probabilístico de primalidade utilizado para determinar se um número é composto ou provavelmente primo. O algoritmo de Miller-Rabin é baseado no chamado "testemunho de Fermat". Se um número composto n passar no teste de Miller-Rabin, ele é considerado um "falso testemunho de Fermat"
+
+PASSO A PASSO
+#### Dado um número ímpar n a ser testado, escreve-se n-1 como 2^r * d, onde d é um número ímpar.
+    Para cada iteração i (de 1 a k, onde k é o número de iterações desejadas):
+        Escolhe-se um número aleatório a entre 2 e n-2.
+        Computa-se x = a^d mod n.
+        Se x for igual a 1 ou n-1, passa-se para a próxima iteração.
+        Para j variando de 1 a r-1:
+            Computa-se x = x^2 mod n.
+            Se x for igual a n-1, passa-se para a próxima iteração.
+            Se x for igual a 1, o número é considerado composto.
+        Se nenhum dos testes anteriores for satisfeito, o número é considerado composto.
+Se após todas as iterações o número não for considerado composto, ele é provavelmente primo.
+
+# RSA (Rivest, Shamir e Adleman)
+RSA é um algoritmo de cifração assimétrica. A chave de cifração RSA é gerada aleatoriamente. 
+A cifração RSA é implementada utilizando o algoritmo de exponenciação modular.
+
+PASSO A PASSO
 
 #### Gere chaves RSA:
   
@@ -52,4 +71,8 @@ Trabalho de segurança computacional - 2023-1
     Criptografe e descriptografe uma mensagem para verificar se a implementação funciona corretamente.
      
     Assine uma mensagem com a chave privada e verifique a assinatura usando a chave pública.
+
+# OAEP (Optimal Asymmetric Encryption Padding)
+OAEP é um algoritmo de preenchimento comumente utilizado junto à cifração RSA.
+Este algoritmo é utilizado junto ao RSA pois com ele a propriedade deterministica é evitada.
      
