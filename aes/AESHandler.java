@@ -49,24 +49,10 @@ public interface AESHandler {
         public static byte[] mixColumns(byte[] key) {
             byte[][] rows = ShiftRow.convertKeyToRows(key);
 
-            rows = columnMixer(rows);
+            rows = MixColumns.columnMixer(rows);
 
             return ShiftRow.convertRowsToKey(rows);
         } // ok
-
-        public static byte[][] columnMixer(byte[][] columns) {
-            byte[][] newColumns = new byte[4][4];
-            for (int i = 0; i < 4; i++) {
-                newColumns[i] = columns[i].clone();
-            }
-
-            for (int i = 0; i < 4; i++) {
-                byte[] temp = columns[i];
-
-            }
-
-            return columns;
-        }
 
         public static byte[] xorRoundKeys(byte[] key) {
             // to be implemented
