@@ -2,6 +2,9 @@ package aes;
 
 import java.util.HexFormat;
 
+import aes.util.MixColumns;
+import aes.util.ShiftRow;
+
 public interface AESHandler {
     public final byte[] RCON = HexFormat.of().parseHex("0001020408102040801B366C");
     public final byte[] SBOX = HexFormat.of().parseHex(
@@ -36,53 +39,33 @@ public interface AESHandler {
         } // ok
 
         public static byte[] shiftRows(byte[] key) {
-            byte[][] rows = convertKeyToRows(key);
+            byte[][] rows = ShiftRow.convertKeyToRows(key);
 
-            rows = rowShift(rows);
+            rows = ShiftRow.rowShift(rows);
 
-            return convertRowsToKey(rows);
-        } // ok
-
-        public static byte[][] convertKeyToRows(byte[] key) {
-            byte[][] rows = new byte[4][4];
-            for (int i = 0; i < key.length; i++) {
-                rows[i % 4][i / 4] = key[i];
-            }
-            return rows;
-        } // ok
-
-        public static byte[] convertRowsToKey(byte[][] rows) {
-            byte[] key = new byte[16];
-
-            for (int i = 0; i < rows.length; i++) {
-                for (int j = 0; j < rows[i].length; j++) {
-                    key[i + 4 * j] = rows[i][j];
-                }
-            }
-            return key;
-        } // ok
-
-        public static byte[][] rowShift(byte[][] rows) {
-            byte[][] newRows = new byte[4][4];
-            for (int i = 0; i < rows.length; i++) {
-                newRows[i] = rows[i].clone();
-            }
-
-            for (int i = 1; i < 4; i++) {
-                byte[] tmp = newRows[i].clone();
-
-                for (int j = 0; j < 4; j++) {
-                    newRows[i][j] = tmp[(j + i) % 4];
-                }
-            }
-
-            return newRows;
+            return ShiftRow.convertRowsToKey(rows);
         } // ok
 
         public static byte[] mixColumns(byte[] key) {
-            byte[] column;
+            byte[][] columns = MixColumns.convertKeyToColumns(key);
 
-            return new byte[] {};
+            columns = columnMixer(columns);
+
+            return MixColumns.convertColumnsToKey(columns);
+        }
+
+        public static byte[][] columnMixer(byte[][] columns) {
+            byte[][] newColumns = new byte[4][4];
+            for (int i = 0; i < 4; i++) {
+                newColumns[i] = columns[i].clone();
+            }
+
+            for (int i = 0; i < 4; i++) {
+                byte[] temp = columns[i];
+
+            }
+
+            return columns;
         }
 
         public static byte[] xorRoundKeys(byte[] key) {

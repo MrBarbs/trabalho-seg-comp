@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 import aes.AES;
 import aes.AESHandler;
+import aes.util.ShiftRow;
 
 public class App {
     public static void main(String[] args) {
@@ -10,19 +11,7 @@ public class App {
         var tmp1 = new byte[][] { new byte[] { 1, 2, 3, 4 }, new byte[] { 5, 6, 7, 8 },
                 new byte[] { 9, 10, 11, 12 }, new byte[] { 13, 14, 15, 16 } };
 
-        var tmp2 = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-
-        // print2D(tmp1);
-        // System.out.println();
-
-        byte[][] tmp = AESHandler.Encrypt.convertKeyToRows(tmp2);
-        var tmp3 = AESHandler.Encrypt.rowShift(tmp);
-
-        var tmp4 = AESHandler.Encrypt.convertRowsToKey(tmp3);
-
-        System.out.println(Arrays.toString(tmp4));
-        // print2D(tmp);
-        System.out.println();
+        var tmp2 = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
     }
 
     public static void print2D(byte mat[][]) {
