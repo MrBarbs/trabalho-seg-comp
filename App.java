@@ -2,7 +2,11 @@ import aes.AES;
 
 public class App {
     public static void main(String[] args) {
-        AES aes = new AES();
+        // get message
+        String message = "Mensagem a ser encriptada";
+        String key = "12345asdfg";
+
+        AES aes = new AES(message, key);
 
         var tmp1 = new byte[][] { new byte[] { 1, 2, 3, 4 }, new byte[] { 5, 6, 7, 8 },
                 new byte[] { 9, 10, 11, 12 }, new byte[] { 13, 14, 15, 16 } };

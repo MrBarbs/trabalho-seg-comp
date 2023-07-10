@@ -1,14 +1,10 @@
 package aes;
 
-import java.util.HexFormat;
-
 import aes.util.MixColumns;
 import aes.util.ShiftRow;
 import aes.util.SubBytes;
 
-public interface AESHandler {
-    public final byte[] RCON = HexFormat.of().parseHex("0001020408102040801B366C");
-
+public interface AESRounds {
     public interface Encrypt {
         public static byte[] subBytes(byte[] key) {
             byte[] result = new byte[key.length];
@@ -36,19 +32,10 @@ public interface AESHandler {
             return ShiftRow.convertRowsToKey(rows);
         } // ok
 
-        public static byte[] xorRoundKeys(byte[] key) {
+        public static byte[] addRoundKeys(byte[] key) {
             // to be implemented
             return new byte[] {};
         }
 
-        private static byte[] roundsTwoToTen(byte[] key) {
-            // to be implemented
-            return new byte[] {};
-        }
-
-        public static byte[] generateRoundKeys(byte[] key0) {
-
-            return new byte[] {};
-        }
     }
 }
