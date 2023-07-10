@@ -3,7 +3,7 @@ Trabalho de segurança computacional - 2023-1
 
 #RSA PASSO A PASSO
 
-- Gere chaves RSA:
+#### Gere chaves RSA:
   
      Escolha dois números primos grandes, p e q.
      
@@ -16,7 +16,7 @@ Trabalho de segurança computacional - 2023-1
      Calcule o inverso multiplicativo de e módulo φ(n), chamado de d, para ser a chave privada de descriptografia.
      
 
-- Implemente as funções de criptografia e descriptografia RSA:
+#### Implemente as funções de criptografia e descriptografia RSA:
     
      A função de criptografia recebe a mensagem original como entrada e retorna a mensagem criptografada.
      
@@ -27,7 +27,7 @@ Trabalho de segurança computacional - 2023-1
      A mensagem original é calculada elevando a mensagem criptografada à potência d módulo n.
 
 
-- Implemente as funções de assinatura e verificação RSA:
+#### Implemente as funções de assinatura e verificação RSA:
   
      A função de assinatura recebe a mensagem original e a chave privada como entrada e retorna a assinatura.
      
@@ -38,14 +38,14 @@ Trabalho de segurança computacional - 2023-1
      Para verificar a assinatura, a mensagem original é calculada elevando a assinatura à potência e módulo n e comparando o resultado com a mensagem original.
      
 
-- Implemente funções auxiliares:
+#### Implemente funções auxiliares:
     
      Função para converter uma string em um número inteiro para a mensagem original.
      
      Função para converter um número inteiro em uma string para a mensagem original.
      
 
-- Teste sua implementação:
+#### Teste sua implementação:
    
     Gere um par de chaves RSA.
 
