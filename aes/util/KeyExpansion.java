@@ -27,7 +27,7 @@ public class KeyExpansion {
         return expandedKey;
     }
 
-    private static int bytesToInt(byte[] key, int i) {
+    public static int bytesToInt(byte[] key, int i) {
         return ((0xFF & key[4 * i]) << 24) | ((0xFF & key[4 * i + 1]) << 16) |
                 ((0xFF & key[4 * i + 2]) << 8) | (0xFF & key[4 * i + 3]);
     }

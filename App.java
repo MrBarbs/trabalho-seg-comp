@@ -3,15 +3,15 @@ import aes.AES;
 public class App {
     public static void main(String[] args) {
         // get message
-        String message = "Mensagem a ser encriptada";
-        String key = "12345asdfg";
+        String message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique magna id sodales porttitor. Nunc ut orci ullamcorper, cursus tellus nec, ultrices dolor. Suspendisse sagittis risus finibus biam.";
+        String key = "SCNV9LhZKzQ9uIkqiOh5MnMqiGW3aWepAXATlUVBDpOzNwb4jTb2gUkGMuawEmRw96DpCF4fZRCozwtjQ0QgUHQy7hvROGBAXoy0A5OfWp0KzGzSTC9b7jM74AeFSOEd";
 
         AES aes = new AES(message, key);
 
-        var tmp1 = new byte[][] { new byte[] { 1, 2, 3, 4 }, new byte[] { 5, 6, 7, 8 },
-                new byte[] { 9, 10, 11, 12 }, new byte[] { 13, 14, 15, 16 } };
+        String cryptedMessage = aes.encrypt();
 
-        var tmp2 = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+        System.out.println("CryptedMessage:\n" + cryptedMessage);
+
     }
 
     public static void print2D(byte mat[][]) {
