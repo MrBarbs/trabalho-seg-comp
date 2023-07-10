@@ -3,11 +3,13 @@ from math import ceil
 from hashlib import sha1, sha3_256
 from operator import xor
 from random import random, randrange
+import random as rand
+import hashlib
 
 # Teste de Miller Rabin para k iterações"
 def teste_MillerRabin(n, k=10):
     for i in range(k):
-        a = random.randrange(2, n - 1)
+        a = rand.randrange(2, n - 1)
         if not iteracao_MillerRabin(n, a):
             return False
     return True
@@ -28,7 +30,7 @@ def iteracao_MillerRabin(n, a):
  
 #Retorna um número aleatório ímpar com um número específico de bits       
 def maior_impar(nbits=1024):
-    return randrange(2 ** (nbits - 2), 2 ** (nbits - 1)) * 2 - 1
+    return rand.randrange(2 ** (nbits - 2), 2 ** (nbits - 1)) * 2 - 1
 
 #Gera o maior primo
 def gerar_primo():
@@ -82,7 +84,7 @@ def oaep_decode(n, em):
 #E retorna a mensagem criptografada como uma sequência de bytes.
 def rsa(chave, mensagem):
     n , expoente = chave
-    k = (n.bit_lenght() + 7) // 8
+    k = (n.bit_length() + 7) // 8
     m = int.from_bytes(mensagem, "big")
     c = pow(m, expoente, n)
     return c.to_bytes(k, "big")
@@ -96,11 +98,11 @@ def decifrar(chave, texto_cifrado):
     return oaep_decode(chave[0], cifrado)
 
 def assinatura(chave_privada, data):
-    hash = sha3_256(data).digest()
+    hash = hashlib.sha3_256(data.encode('utf-8')).digest()
     return rsa(chave_privada, hash)
 
 def verificar(chave_publica, data, assinatura):
-    hash = sha3_256(data).digest()
+    hash = hashlib.sha3_256(data.encode('utf-8')).digest()
     return rsa(chave_publica, assinatura)[-32:] == hash
     
     
