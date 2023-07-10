@@ -78,6 +78,8 @@ Ao descriptografar os dados criptografados com OAEP, as etapas são executadas e
 
 # IMPLEMENTAÇÃO
 O algoritmo não implementado com o uso de arquivos, apenas print na tela, portanto utilizando o terminal digite:
+
     `./main.py`
+    
 No terminal irá pedir para que escreva a mensagem que deseja ser encriptada e decriptada, sendo esses dois feito de forma automático
 Além disso o código verifica e faz assinatura do RSA.
