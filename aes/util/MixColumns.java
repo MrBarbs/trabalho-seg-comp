@@ -15,12 +15,24 @@ public interface MixColumns {
             0x0B, 0x0D, 0x09, 0x0E
     };
 
-    public static void columnMixer(byte[][] state) {
-        mixColumns(state, MIX_COLUMN_MATRIX);
+    public static byte[][] columnMixer(byte[][] state) {
+        byte[][] stateClone = new byte[4][4];
+        for (int i = 0; i < 4; i++) {
+            stateClone[i] = state[i].clone();
+        }
+
+        mixColumns(stateClone, MIX_COLUMN_MATRIX);
+        return stateClone;
     } // ok
 
-    public static void inverseMixColumns(byte[][] state) {
-        mixColumns(state, INVERSE_MIX_COLUMN_MATRIX);
+    public static byte[][] inverseColumnMixer(byte[][] state) {
+        byte[][] stateClone = new byte[4][4];
+        for (int i = 0; i < 4; i++) {
+            stateClone[i] = state[i].clone();
+        }
+
+        mixColumns(stateClone, INVERSE_MIX_COLUMN_MATRIX);
+        return stateClone;
     } // ok
 
     private static void mixColumns(byte[][] state, int[] matrix) {
