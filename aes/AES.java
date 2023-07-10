@@ -1,6 +1,8 @@
 package aes;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Random;
 
 import aes.util.KeyExpansion;
@@ -38,9 +40,14 @@ public class AES {
     return key;
   }
 
+  public void getKey() {
+    System.out.println("Chave gerada: " + Arrays.toString(this.key));
+  }
+
   public String encrypt() {
     // 1. Key expansion
     this.expandedKey = KeyExpansion.expandKey(this.key);
+    System.out.println("Chave expandida: " + Arrays.toString(expandedKey));
 
     // 2. Initial Round
     // int[] step = AESRounds.Encrypt.initialRound(this.message, this.expandedKey);

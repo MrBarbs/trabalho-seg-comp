@@ -1,5 +1,8 @@
 package aes;
 
+import java.util.Arrays;
+
+import aes.util.AddRoundKey;
 import aes.util.KeyExpansion;
 import aes.util.MixColumns;
 import aes.util.ShiftRow;
@@ -57,9 +60,9 @@ public interface AESRounds {
                 if (i != 10) {
                     step = mixColumns(step);
                 }
-                // int[] roundKey = Arrays.copyOfRange(expandedKey, 4 * i, 4 * i + 4);
-                // step = AddRoundKey.addRoundKey(ShiftRow.convertKeyToRows(step),
-                // ShiftRow.convertKeyToRows(intArrayToByteArray(roundKey)), i);
+                int[] roundKey = Arrays.copyOfRange(expandedKey, 4 * i, 4 * i + 4);
+                step = AddRoundKey.addRoundKey(ShiftRow.convertKeyToRows(step),
+                        ShiftRow.convertKeyToRows(intArrayToByteArray(roundKey)), i);
             }
             return step;
         }
