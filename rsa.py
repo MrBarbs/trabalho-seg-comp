@@ -7,7 +7,7 @@ import random as rand
 import hashlib
 
 # Teste de Miller Rabin para k iterações"
-def teste_MillerRabin(n, k=10):
+def teste_MillerRabin(n, k=40):
     for i in range(k):
         a = rand.randrange(2, n - 1)
         if not iteracao_MillerRabin(n, a):
@@ -36,13 +36,16 @@ def maior_impar(nbits=1024):
 def gerar_primo():
     return next(filter(teste_MillerRabin, iter(maior_impar, 0)))
 
-# https://datatracker.ietf.org/doc/html/rfc8017#appendix-B.2.1
+#data - dados de entrada que são mascarados
+#seed - semente usada para gerar a mascara
+#mlen - comprimento desejado da mascara em byte
 def mask(data, seed, mlen):
     t = b''
-    for counter in range(ceil(mlen / 20)):
-        c = counter.to_bytes(4, "big")
-        t += sha1(seed + c).digest()
-    return bytes(map(xor, data, bytes(len(data)) + t[:mlen]))
+    for counter in range(ceil(mlen / 20)): #gera mascara em blocos de 20bytes
+        c = counter.to_bytes(4, "big") #contador e convertida em sequencia de bytes de 4 bytes
+        t += sha1(seed + c).digest() #obtem sequencia de bytes do hash sha-1
+    #Retornado como uma sequência de bytes
+    return bytes(map(xor, data, bytes(len(data)) + t[:mlen])) 
 
 #Gerador de chaves
 def gerar_chaves():
@@ -50,14 +53,17 @@ def gerar_chaves():
     q = gerar_primo()
     n = p * q
     phi_n = (p-1) * (q-1)
-    e =  65537
+    e =  65537 #valor comumente usado como expoente pubico 
     d = pow(e, -1, phi_n)
     chave_publica = (n,e)
     chave_privada = (n,d)
     return (chave_publica, chave_privada)
 
+# Implementa a codificação do esquema de padding de codificação
+# Gera mascaras, concatenação de blocos de dados e uso de sementes aleatórias
+# Resultado final é uma sequencia de bytes que representa a mensagem codificada com o padding
 def oaep_encode(n, message):
-    k = (n.bit_length() + 7) // 8
+    k = (n.bit_length() + 7) // 8 
     message_len = len(message)
     hash_len = 20
     lable_hash = b"\xda9\xa3\xee^kK\r2U\xbf\xef\x95`\x18\x90\xaf\xd8\x07\t"
@@ -69,7 +75,7 @@ def oaep_encode(n, message):
     return b'\x00' + masked_seed + masked_data_block
 
 
-# # https://datatracker.ietf.org/doc/html/rfc8017#section-7.1.2
+# Implementa a decodificação
 def oaep_decode(n, em):
     k = (n.bit_length() + 7) // 8
     hash_len = 20
@@ -97,12 +103,17 @@ def decifrar(chave, texto_cifrado):
     cifrado = rsa(chave, texto_cifrado)
     return oaep_decode(chave[0], cifrado)
 
+# Calcula um hash dos dados de entrada e usa a chave privada para criptografar o hash
+# gerando a assinatura digital
 def assinatura(chave_privada, data):
-    hash = hashlib.sha3_256(data.encode('utf-8')).digest()
+    hash = hashlib.sha3_256(data.encode('utf-8')).digest() #tamanho 256 bits
     return rsa(chave_privada, hash)
 
+# Verifica a assinatura digital correspondente aos dados de entrada usando a chave publica
+# Calcula hash dos dados, descriptografa a assinatura e compara os ultimos 32 bytes da descriptografia 
+# com o hash original. Em caso verdadeiro, retorna True
 def verificar(chave_publica, data, assinatura):
-    hash = hashlib.sha3_256(data.encode('utf-8')).digest()
+    hash = hashlib.sha3_256(data.encode('utf-8')).digest() #tamanho de 256 bits
     return rsa(chave_publica, assinatura)[-32:] == hash
     
     
