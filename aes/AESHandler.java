@@ -33,37 +33,51 @@ public interface AESHandler {
             }
 
             return result;
-        }
+        } // ok
 
         public static byte[] shiftRows(byte[] key) {
-            for (int i = 0; i < key.length / 4; i++) {
-                int row = i % 4;
-                key = shiftOneRow(key, row);
+            byte[][] rows = convertKeyToRows(key);
+
+            rows = rowShift(rows);
+
+            return convertRowsToKey(rows);
+        } // ok
+
+        public static byte[][] convertKeyToRows(byte[] key) {
+            byte[][] rows = new byte[4][4];
+            for (int i = 0; i < key.length; i++) {
+                rows[i % 4][i / 4] = key[i];
+            }
+            return rows;
+        } // ok
+
+        public static byte[] convertRowsToKey(byte[][] rows) {
+            byte[] key = new byte[16];
+
+            for (int i = 0; i < rows.length; i++) {
+                for (int j = 0; j < rows[i].length; j++) {
+                    key[i + 4 * j] = rows[i][j];
+                }
             }
             return key;
-        }
+        } // ok
 
-        private static byte[] shiftOneRow(byte[] key, int row) {
-            if (row == 0) {
-                return key;
+        public static byte[][] rowShift(byte[][] rows) {
+            byte[][] newRows = new byte[4][4];
+            for (int i = 0; i < rows.length; i++) {
+                newRows[i] = rows[i].clone();
             }
 
-            byte lastValue = key[row];
+            for (int i = 1; i < 4; i++) {
+                byte[] tmp = newRows[i].clone();
 
-            for (int i = 0; i < key.length / 4; i++) {
-                int index1 = row + 4 * i;
-                int index2 = (index1 - 4 * row + 16) % 16;
-
-                if (i == 3) {
-                    key[index2] = lastValue;
-                } else {
-                    lastValue = key[index2];
-                    key[index2] = key[index1];
+                for (int j = 0; j < 4; j++) {
+                    newRows[i][j] = tmp[(j + i) % 4];
                 }
             }
 
-            return key;
-        }
+            return newRows;
+        } // ok
 
         public static byte[] mixColumns(byte[] key) {
             byte[] column;
