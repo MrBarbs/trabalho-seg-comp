@@ -46,12 +46,10 @@ if __name__ == "__main__":
     ###### DECIFRA ##########    
 
     signature = base64.b64decode(assinatura)
-    # padding = "=" * (4 - (len(signature) % 4))  # Adiciona padding '=' para ajustar o comprimento
-    # signature += padding    
+    print("Assinatura: ", signature)
+    print()
     
     cipher_session_key = base64.b64decode(cifrar_session_key)
-    # padding = "=" * (4 - (len(cipher_session_key) % 4))  # Adiciona padding '=' para ajustar o comprimento
-    # cipher_session_key += padding
     
     n, d = map(int, private_key)
     private_key = (n, d)
